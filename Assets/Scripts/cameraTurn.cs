@@ -5,6 +5,9 @@ using UnityEngine;
 public class cameraTurn : MonoBehaviour {
 
     public float turnSpeed = 1;
+    public float maximumAngle = 90;
+    public float minimumAngle = 90;
+    
     // Use this for initialization
     void Start () {
 		
@@ -15,8 +18,10 @@ public class cameraTurn : MonoBehaviour {
         Vector3 turnAmount = new Vector3(0, 0, 0);
 
         float turn = Input.GetAxis("Mouse Y");
+        Debug.Log("turn variable: " + turn);
         turnAmount.Set(-turn, 0, 0);
-        transform.Rotate(turnAmount * turnSpeed);
+        turnAmount.x = Mathf.Clamp(turnAmount.x, minimumAngle, maximumAngle);
+        transform.Rotate(turnAmount * turnSpeed * Time.deltaTime);
 
     }
 }
